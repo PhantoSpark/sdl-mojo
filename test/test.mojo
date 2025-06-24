@@ -7,6 +7,7 @@
 # Please add more test cases and open issues if anything breaks!
 #
 from sdl import *
+from sdl import _uninit
 from time import monotonic
 from math import sqrt
 
@@ -28,6 +29,11 @@ def main():
     var ticks = monotonic()
     var delta_time = Float32(0)
 
+    var music = List[UInt8]()
+    var music_spec = _uninit[SDL_AudioSpec]()
+
+    sdl_load_wav("/home/phanto/sdl-mojo/assets/DeMasteredWae.wav", Ptr (to = music_spec), Ptr (to = music.data), Ptr (to = music._len).bitcast[UInt32]())
+    
     while running:
         var event = SDL_Event(UInt32(0))
         while sdl_poll_event(Ptr(to=event)):
